@@ -567,6 +567,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
 
   def cleanup(generation, thread = Thread.current,
               generation_key = @generation_key) # :nodoc:
+    puts "creaning up thread #{thread.inspect} with status #{thread.status}"
     timeouts = thread[@timeout_key]
 
     (0...generation).each do |old_generation|
@@ -586,6 +587,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
   # Creates a new connection for +uri+
 
   def connection_for uri
+    puts "creating new connection for thread: #{Thread.current}"
     Thread.current[@generation_key]     ||= Hash.new { |h,k| h[k] = {} }
     Thread.current[@ssl_generation_key] ||= Hash.new { |h,k| h[k] = {} }
     Thread.current[@request_key]        ||= Hash.new 0
@@ -1125,6 +1127,7 @@ class Bundler::Persistent::Net::HTTP::Persistent
 
   def shutdown_in_all_threads
     Thread.list.each do |thread|
+      puts "shutting down #{thread.current}"
       shutdown thread
     end
 
