@@ -9,9 +9,9 @@ module Bundler
       puts "from process #{Thread.current.object_id}"
       File.open(lock_file_path, "w") do |f|
         puts 'locking this file'
-        if f.flock(File::LOCK_NB)
-          puts 'file is locked we will spin here'
-        end
+        # if f.flock(File::LOCK_NB)
+          # puts 'file is locked we will spin here'
+        # end
         f.flock(File::LOCK_EX)
         has_lock = true
         puts 'yielding from inside open lockfile'
