@@ -20,13 +20,16 @@ module Bundler
     # Begins the installation process for Bundler.
     # For more information see the #run method on this class.
     def self.install(root, definition, options = {})
+      puts 'install called'
       installer = new(root, definition)
       Plugin.hook("before-install-all", definition.dependencies)
+      puts 'about to run'
       installer.run(options)
       installer
     end
 
     def initialize(root, definition)
+      puts 'initializing installer'
       @root = root
       @definition = definition
       @post_install_messages = {}
@@ -68,8 +71,9 @@ module Bundler
     # information.
     def run(options)
       create_bundle_path
-
+      puts 'running installer'
       ProcessLock.lock do
+        puts 'process locked'
         if Bundler.frozen_bundle?
           @definition.ensure_equivalent_gemfile_and_lockfile(options[:deployment])
         end
