@@ -65,6 +65,7 @@ module Bundler
       definition.validate_runtime!
       puts "about to actually call installer.install!"
       installer = Installer.install(Bundler.root, definition, options)
+      puts "done running installer.install!"
       Bundler.load.cache if Bundler.app_cache.exist? && !options["no-cache"] && !Bundler.frozen_bundle?
 
       Bundler.ui.confirm "Bundle complete! #{dependencies_count_for(definition)}, #{gems_installed_for(definition)}."
@@ -80,7 +81,7 @@ module Bundler
       Bundler::CLI::Common.output_post_install_messages installer.post_install_messages
 
       warn_ambiguous_gems
-
+      puts "cleaning after install next"
       if CLI::Common.clean_after_install?
         require "bundler/cli/clean"
         Bundler::CLI::Clean.new(options).run
