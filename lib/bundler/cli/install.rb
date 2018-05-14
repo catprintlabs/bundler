@@ -63,7 +63,7 @@ module Bundler
 
       definition = Bundler.definition
       definition.validate_runtime!
-
+      puts "about to actually call installer.install!"
       installer = Installer.install(Bundler.root, definition, options)
       Bundler.load.cache if Bundler.app_cache.exist? && !options["no-cache"] && !Bundler.frozen_bundle?
 
