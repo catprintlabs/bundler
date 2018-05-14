@@ -26,6 +26,7 @@ Bundler.with_friendly_errors do
   help_flags = %w[--help -h]
   help_flag_used = ARGV.any? {|a| help_flags.include? a }
   args = help_flag_used ? Bundler::CLI.reformatted_help_args(ARGV) : ARGV
-
+  puts "bundler CLI starting with args #{args}"
+  binding.pry
   Bundler::CLI.start(args, :debug => true)
 end
