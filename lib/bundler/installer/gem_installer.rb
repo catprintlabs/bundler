@@ -58,6 +58,7 @@ module Bundler
     end
 
     def install
+      puts 'running install from gem installer'
       spec.source.install(spec, :force => force, :ensure_builtin_gems_cached => standalone, :build_args => Array(spec_settings))
     end
 

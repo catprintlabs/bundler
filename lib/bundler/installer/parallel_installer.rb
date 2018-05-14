@@ -137,11 +137,13 @@ module Bundler
   private
 
     def install_with_worker
+      puts 'installing with worker'
       enqueue_specs
       process_specs until finished_installing?
     end
 
     def install_serially
+      puts 'installing serially worker'
       until finished_installing?
         raise "failed to find a spec to enqueue while installing serially" unless spec_install = @specs.find(&:ready_to_enqueue?)
         spec_install.state = :enqueued
