@@ -72,7 +72,7 @@ module Bundler
     def run(options)
       create_bundle_path
       puts 'running installer'
-      ProcessLock.lock do
+      ProcessLock.lock do # this is where we get into deadlock
         puts 'process locked'
         if Bundler.frozen_bundle?
           @definition.ensure_equivalent_gemfile_and_lockfile(options[:deployment])
