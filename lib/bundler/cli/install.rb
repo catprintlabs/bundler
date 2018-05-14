@@ -4,10 +4,12 @@ module Bundler
   class CLI::Install
     attr_reader :options
     def initialize(options)
+      puts "initializing CLI install"
       @options = options
     end
 
     def run
+      puts "running CLI install"
       Bundler.ui.level = "error" if options[:quiet]
 
       warn_if_root
